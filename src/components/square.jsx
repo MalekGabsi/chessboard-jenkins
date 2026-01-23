@@ -20,6 +20,7 @@ export default function Square({
 
   return (
     <div
+      data-testid={`sq-${square}`}
       onClick={onClick}
       onDragOver={handleDragOver}
       onDrop={handleDrop}

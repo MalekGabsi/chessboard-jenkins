@@ -8,6 +8,9 @@ export default function Piece({ piece, square }) {
 
   return (
     <div
+      data-testid={`piece-${square}`}
+      data-piece={piece}
+      data-square={square}
       draggable
       onDragStart={handleDragStart}
       style={styles.piece}

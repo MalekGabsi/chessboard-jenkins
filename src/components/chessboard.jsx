@@ -4,7 +4,7 @@ import { files, ranks } from "../domain/squares";
 
 export default function Chessboard({ position, selected, onPick, onDrop }) {
   return (
-    <div style={styles.board} role="application" aria-label="Plateau d'échecs">
+    <div data-testid="chessboard" style={styles.board} role="application" aria-label="Plateau d'échecs" >
       {ranks.map((r, rIndex) =>
         files.map((f, fIndex) => {
           const square = `${f}${r}`;

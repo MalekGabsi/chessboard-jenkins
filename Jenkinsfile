@@ -28,16 +28,19 @@ pipeline {
       }
       post {
         always {
-          publishHTML([
+            publishHTML([
             allowMissing: true,
+            alwaysLinkToLastBuild: false,
             keepAll: true,
             reportDir: 'html',
             reportFiles: 'index.html',
             reportName: 'VitestReport',
+            reportTitles: '',
             useWrapperFileDirectly: true
-          ])
+            ])
         }
-      }
+        }
+
     }
 
     stage('UI Tests (Playwright)') {

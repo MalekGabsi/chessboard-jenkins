@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run --reporter=html",
+    "test": "npx vite preview --outDir html",
     "test:run": "vitest run",
     "test:e2e": "playwright test -c playwright-ct.config.ts --reporter=html",
     "test:ct": "playwright test -c playwright-ct.config.ts",

@@ -5,10 +5,11 @@ pipeline {
     stage('Build') {
       agent {
         docker {
-          image 'mcr.microsoft.com/playwright:v1.57.0-noble'
+          image 'mcr.microsoft.com/playwright:v1.58.0-noble'
           args '--network=host'
         }
       }
+      when { branch 'main' }
       steps {
         sh 'npm ci || npm install'
         sh 'npm run build'

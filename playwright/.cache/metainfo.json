@@ -17,10 +17,10 @@
       "timestamp": 1769176582741.847
     },
     "/home/client/fie4/chess-proj/node_modules/react/index.js": {
-      "timestamp": 1769174015242.9731
+      "timestamp": 1769591052690.9546
     },
     "/home/client/fie4/chess-proj/node_modules/react-dom/client.js": {
-      "timestamp": 1769174015239.9731
+      "timestamp": 1769591052685.954
     },
     "/home/client/fie4/chess-proj/src/components/__ct__/Chessboard.story.jsx": {
       "timestamp": 1769177423276.539
@@ -32,43 +32,43 @@
       "timestamp": 1768381187256.6147
     },
     "/home/client/fie4/chess-proj/node_modules/react/jsx-runtime.js": {
-      "timestamp": 1769174015260.9731
+      "timestamp": 1769591052715.9568
     },
     "/home/client/fie4/chess-proj/node_modules/react/cjs/react.production.js": {
-      "timestamp": 1769174015362.9731
+      "timestamp": 1769591052826.9668
     },
     "/home/client/fie4/chess-proj/src/components/chessboard.jsx": {
       "timestamp": 1769177756507.6387
     },
     "/home/client/fie4/chess-proj/node_modules/react-dom/cjs/react-dom-client.production.js": {
-      "timestamp": 1769174015540.9731
+      "timestamp": 1769591052884.9722
     },
     "/home/client/fie4/chess-proj/node_modules/react/cjs/react-jsx-runtime.production.js": {
-      "timestamp": 1769174015328.9731
+      "timestamp": 1769591052806.965
     },
     "/home/client/fie4/chess-proj/src/domain/squares.js": {
       "timestamp": 1768381133003.6184
     },
     "/home/client/fie4/chess-proj/node_modules/scheduler/index.js": {
-      "timestamp": 1769174015239.9731
+      "timestamp": 1769591052685.954
     },
     "/home/client/fie4/chess-proj/node_modules/react-dom/index.js": {
-      "timestamp": 1769174015248.9731
-    },
-    "/home/client/fie4/chess-proj/src/components/piece.jsx": {
-      "timestamp": 1769175278887.6655
+      "timestamp": 1769591052698.9553
     },
     "/home/client/fie4/chess-proj/src/components/square.jsx": {
       "timestamp": 1769175246803.7563
     },
-    "/home/client/fie4/chess-proj/node_modules/scheduler/cjs/scheduler.production.js": {
-      "timestamp": 1769174015321.9731
-    },
-    "/home/client/fie4/chess-proj/node_modules/react-dom/cjs/react-dom.production.js": {
-      "timestamp": 1769174015673.9731
+    "/home/client/fie4/chess-proj/src/components/piece.jsx": {
+      "timestamp": 1769175278887.6655
     },
     "/home/client/fie4/chess-proj/src/domain/pieces.js": {
       "timestamp": 1768381144387.6177
+    },
+    "/home/client/fie4/chess-proj/node_modules/react-dom/cjs/react-dom.production.js": {
+      "timestamp": 1769591053014.984
+    },
+    "/home/client/fie4/chess-proj/node_modules/scheduler/cjs/scheduler.production.js": {
+      "timestamp": 1769591052798.9644
     }
   },
   "deps": {

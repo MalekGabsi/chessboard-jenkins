@@ -9,7 +9,6 @@ pipeline {
           args '--network=host'
         }
       }
-      when { branch 'main' }
       steps {
         sh 'npm ci || npm install'
         sh 'npm run build'

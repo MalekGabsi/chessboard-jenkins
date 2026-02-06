@@ -56,16 +56,19 @@ pipeline {
       }
       post {
         always {
-          publishHTML([
+            publishHTML([
             allowMissing: true,
+            alwaysLinkToLastBuild: false,
             keepAll: true,
             reportDir: 'playwright-report',
             reportFiles: 'index.html',
             reportName: 'PlaywrightReport',
+            reportTitles: '',
             useWrapperFileDirectly: true
-          ])
+            ])
         }
-      }
+        }
+
     }
   }
 }

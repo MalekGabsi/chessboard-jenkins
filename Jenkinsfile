@@ -2,7 +2,7 @@ pipeline {
   agent none
 
   environment {
-    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1",
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1"
     NETLIFY_AUTH_TOKEN = credentials('NETLIFY_TOKEN')
   }
 

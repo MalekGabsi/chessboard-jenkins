@@ -46,7 +46,6 @@ pipeline {
       }
     }
 
-    // 🚀 DEPLOY ONLY ON MAIN
     stage('Deploy') {
       when {
         branch 'main'
@@ -57,11 +56,9 @@ pipeline {
         }
       }
       steps {
-        echo "Deploying application (main branch only)"
+        sh 'npm ci'
         sh 'npm run build'
-        // exemple :
-        // sh 'docker compose up -d'
-        // sh 'scp -r dist user@server:/var/www/html'
+        sh 'npx netlify deploy --prod --dir=dist'
       }
     }
   }

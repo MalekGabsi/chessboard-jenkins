@@ -45,33 +45,23 @@ pipeline {
       }
     }
 
-    /*
-    stage('Unit Tests (Vitest)') {
+    // 🚀 DEPLOY ONLY ON MAIN
+    stage('Deploy') {
+      when {
+        branch 'main'
+      }
       agent {
         docker {
-          image 'mcr.microsoft.com/playwright:v1.58.0-noble'
-          args '--network=host'
+          image 'node:20-alpine'
         }
       }
       steps {
-        sh 'npm run test'
-      }
-      post {
-        always {
-          publishHTML([
-            allowMissing: true,
-            alwaysLinkToLastBuild: false,
-            keepAll: true,
-            reportDir: 'html',
-            reportFiles: 'index.html',
-            reportName: 'VitestReport',
-            useWrapperFileDirectly: true
-          ])
-        }
+        echo "Deploying application (main branch only)"
+        sh 'npm run build'
+        // exemple :
+        // sh 'docker compose up -d'
+        // sh 'scp -r dist user@server:/var/www/html'
       }
     }
-    */
   }
-
-  
 }

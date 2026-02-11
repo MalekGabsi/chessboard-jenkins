@@ -1,16 +1,81 @@
-# React + Vite
+♟️ Chessboard App (React + chess.js)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Application d’échecs développée en React avec gestion des règles officielles via la librairie chess.js.
 
-Currently, two official plugins are available:
+Le projet inclut :
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🎯 Déplacements conformes aux règles d’échecs
 
-## React Compiler
+🧠 Gestion des tours (Blancs / Noirs)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+♟️ Capture des pièces
 
-## Expanding the ESLint configuration
+🕘 Historique des coups (notation SAN)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🧪 Tests unitaires (Vitest)
+
+🖱️ Tests UI (Playwright Component Testing)
+
+⚙️ Pipeline CI avec Jenkins
+
+🚀 Installation
+npm install
+
+🧑‍💻 Lancer en développement
+npm run dev
+
+
+Puis ouvrir :
+
+http://localhost:5173
+
+🏗️ Build production
+npm run build
+
+
+Preview :
+
+npm run preview
+
+🧪 Tests
+Tests unitaires (Vitest)
+npm run test
+
+Tests Playwright (Component Testing)
+npm run test:ct
+
+🏛️ Stack technique
+
+React 19
+
+Vite
+
+chess.js
+
+Vitest
+
+Playwright
+
+Jenkins (CI/CD)
+
+🚀 Lancer Jenkins
+docker compose up -d 
+
+📌 Fonctionnalités principales
+
+✔️ 64 cases dynamiques
+
+✔️ 32 pièces initialisées correctement
+
+✔️ Refus des coups illégaux
+
+✔️ Capture automatique
+
+✔️ Reset de la partie
+
+
+
+👨‍💻 Auteur
+
+Malek Gabsi
+

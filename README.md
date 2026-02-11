@@ -32,11 +32,6 @@ http://localhost:5173
 🏗️ Build production
 npm run build
 
-
-Preview :
-
-npm run preview
-
 🧪 Tests
 Tests unitaires (Vitest)
 npm run test

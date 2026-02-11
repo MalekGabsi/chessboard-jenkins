@@ -5,7 +5,7 @@
   "components": [
     {
       "id": "_home_client_fie4_chess_proj_src_components___ct___Chessboard_story_jsx",
-      "filename": "/home/client/fie4/chess-proj/src/components/__ct__/Chessboard.spec.jsx",
+      "filename": "/home/client/fie4/chess-proj/src/components/__ct__/Chessboard.ct.spec.jsx",
       "importSource": "./Chessboard.story.jsx"
     }
   ],
@@ -17,58 +17,58 @@
       "timestamp": 1769176582741.847
     },
     "/home/client/fie4/chess-proj/node_modules/react/index.js": {
-      "timestamp": 1770383230704.9841
+      "timestamp": 1770389022986.0093
     },
     "/home/client/fie4/chess-proj/node_modules/react-dom/client.js": {
-      "timestamp": 1770383230703.9841
+      "timestamp": 1770389022926.0078
     },
     "/home/client/fie4/chess-proj/src/components/__ct__/Chessboard.story.jsx": {
-      "timestamp": 1769177423276.539
+      "timestamp": 1770816798462.476
     },
     "/home/client/fie4/chess-proj/node_modules/react/jsx-runtime.js": {
-      "timestamp": 1770383230718.9841
+      "timestamp": 1770389023125.0122
     },
-    "/home/client/fie4/chess-proj/src/domain/chessInitial.js": {
-      "timestamp": 1768381158573.6167
-    },
-    "/home/client/fie4/chess-proj/src/services/MoveHistoryService.js": {
-      "timestamp": 1768381187256.6147
+    "/home/client/fie4/chess-proj/src/services/ChessGameService.js": {
+      "timestamp": 1770814917595.6387
     },
     "/home/client/fie4/chess-proj/node_modules/react/cjs/react.production.js": {
-      "timestamp": 1770383230777.9841
+      "timestamp": 1770389023691.025
     },
     "/home/client/fie4/chess-proj/src/components/chessboard.jsx": {
-      "timestamp": 1769177756507.6387
+      "timestamp": 1770816043119.641
     },
     "/home/client/fie4/chess-proj/node_modules/react-dom/cjs/react-dom-client.production.js": {
-      "timestamp": 1770383230813.9841
+      "timestamp": 1770389024122.0344
+    },
+    "/home/client/fie4/chess-proj/node_modules/chess.js/dist/esm/chess.js": {
+      "timestamp": 1770814846038.8447
     },
     "/home/client/fie4/chess-proj/node_modules/react/cjs/react-jsx-runtime.production.js": {
-      "timestamp": 1770383230766.9841
+      "timestamp": 1770389023537.0215
     },
     "/home/client/fie4/chess-proj/src/domain/squares.js": {
       "timestamp": 1768381133003.6184
     },
     "/home/client/fie4/chess-proj/node_modules/scheduler/index.js": {
-      "timestamp": 1770383230703.9841
+      "timestamp": 1770389022925.0078
     },
     "/home/client/fie4/chess-proj/node_modules/react-dom/index.js": {
-      "timestamp": 1770383230709.9841
+      "timestamp": 1770389023048.0105
     },
     "/home/client/fie4/chess-proj/src/components/piece.jsx": {
       "timestamp": 1769175278887.6655
     },
     "/home/client/fie4/chess-proj/src/components/square.jsx": {
-      "timestamp": 1769175246803.7563
+      "timestamp": 1770816228120.4329
     },
     "/home/client/fie4/chess-proj/src/domain/pieces.js": {
       "timestamp": 1768381144387.6177
     },
-    "/home/client/fie4/chess-proj/node_modules/scheduler/cjs/scheduler.production.js": {
-      "timestamp": 1770383230762.9841
-    },
     "/home/client/fie4/chess-proj/node_modules/react-dom/cjs/react-dom.production.js": {
-      "timestamp": 1770383230890.9841
+      "timestamp": 1770389024826.0498
+    },
+    "/home/client/fie4/chess-proj/node_modules/scheduler/cjs/scheduler.production.js": {
+      "timestamp": 1770389023499.0205
     }
   },
   "deps": {
@@ -79,8 +79,8 @@
       "/home/client/fie4/chess-proj/src/components/piece.jsx",
       "/home/client/fie4/chess-proj/src/domain/pieces.js",
       "/home/client/fie4/chess-proj/src/domain/squares.js",
-      "/home/client/fie4/chess-proj/src/domain/chessInitial.js",
-      "/home/client/fie4/chess-proj/src/services/MoveHistoryService.js"
+      "/home/client/fie4/chess-proj/src/services/ChessGameService.js",
+      "/home/client/fie4/chess-proj/node_modules/chess.js/dist/esm/chess.js"
     ]
   }
 }

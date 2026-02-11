@@ -17634,8 +17634,8 @@ window.playwrightUpdate = async (rootElement, component) => {
   entry.setRenderer(() => __pwRender(component));
 };
 
-const _home_client_fie4_chess_proj_src_components___ct___Chessboard_story_jsx = () => __vitePreload(() => import('./Chessboard.story-D-QjQ4zX.js'),true              ?[]:void 0).then((mod) => mod.default);
+const _home_client_fie4_chess_proj_src_components___ct___Chessboard_story_jsx = () => __vitePreload(() => import('./Chessboard.story-CuEsYBGR.js'),true              ?[]:void 0).then((mod) => mod.default);
 __pwRegistry.initialize({ _home_client_fie4_chess_proj_src_components___ct___Chessboard_story_jsx });
 
 export { getDefaultExportFromCjs as g, reactExports as r };
-//# sourceMappingURL=index-CTGrptbR.js.map
+//# sourceMappingURL=index-CEmhhP1p.js.map

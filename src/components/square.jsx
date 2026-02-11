@@ -16,7 +16,18 @@ export default function Square({
     onDrop(from);
   }
 
-  const base = isLight ? "var(--light)" : "var(--dark)";
+  const file = square[0];       // a..h
+  const rank = square[1];       // 1..8
+
+  // ✅ affichage des chiffres seulement sur la colonne 'a'
+  const showRank = file === "a";
+  // ✅ affichage des lettres seulement sur la rangée '1'
+  const showFile = rank === "1";
+
+  // Couleurs comme ton screenshot
+  const light = "#EEEED2";
+  const dark = "#4C7398"; // bleu
+  const base = isLight ? light : dark;
 
   return (
     <div
@@ -25,51 +36,84 @@ export default function Square({
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       style={{
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        ...styles.square,
         background: base,
-        transition: "transform .08s ease, filter .15s ease, outline .15s ease",
-        outline: isSelected ? "3px solid rgba(124,218,255,.95)" : "none",
+
+        // optionnel: sélection visible
+        outline: isSelected ? "3px solid rgba(255,255,255,.85)" : "none",
         outlineOffset: "-3px",
-        boxShadow: isSelected
-          ? "inset 0 0 0 999px rgba(124,218,255,.10)"
-          : "none",
       }}
       aria-label={`Square ${square}`}
     >
-      {/* coord */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 7,
-          right: 8,
-          fontSize: 10,
-          opacity: 0.38,
-          color: "#0b1020",
-          userSelect: "none",
-          fontWeight: 700,
-        }}
-      >
-        {square}
-      </div>
+      {/* ✅ Rank à gauche (8..1) */}
+      {showRank && (
+        <div
+          style={{
+            ...styles.rankLabel,
+            color: isLight ? "rgba(0,0,0,.70)" : "rgba(255,255,255,.92)",
+          }}
+        >
+          {rank}
+        </div>
+      )}
 
-      {/* subtle vignette */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          background:
-            "radial-gradient(120px 120px at 50% 45%, rgba(255,255,255,.16), transparent 60%)",
-          opacity: isLight ? 0.35 : 0.22,
-        }}
-      />
+      {/* ✅ File en bas (a..h) */}
+      {showFile && (
+        <div
+          style={{
+            ...styles.fileLabel,
+            color: isLight ? "rgba(0,0,0,.70)" : "rgba(255,255,255,.92)",
+          }}
+        >
+          {file}
+        </div>
+      )}
 
-      {children}
+      {/* zone pièce */}
+      <div style={styles.center}>{children}</div>
     </div>
   );
-
-  
 }
+
+const styles = {
+  square: {
+    width: "100%",
+    height: "100%",              // ✅ même taille vide/avec pièce
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    userSelect: "none",
+  },
+
+  center: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  rankLabel: {
+    position: "absolute",
+    left: 8,
+    top: 6,
+    fontSize: 22,
+    fontWeight: 800,
+    lineHeight: 1,
+    textShadow: "0 1px 0 rgba(0,0,0,.15)",
+    pointerEvents: "none",
+  },
+
+  fileLabel: {
+    position: "absolute",
+    right: 8,
+    bottom: 6,
+    fontSize: 22,
+    fontWeight: 800,
+    lineHeight: 1,
+    textShadow: "0 1px 0 rgba(0,0,0,.15)",
+    pointerEvents: "none",
+    textTransform: "lowercase",
+  },
+};

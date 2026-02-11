@@ -1,222 +1,229 @@
 import { useMemo, useState } from "react";
 import Chessboard from "./components/chessboard";
-import { initialPosition } from "./domain/chessInitial";
-import { MoveHistoryService } from "./services/MoveHistoryService";
+import { ChessGameService } from "./services/ChessGameService";
 
 export default function App() {
-  const service = useMemo(() => new MoveHistoryService(initialPosition()), []);
+  const service = useMemo(() => new ChessGameService(), []);
   const [position, setPosition] = useState(service.getPosition());
   const [selected, setSelected] = useState(null);
+  const [hints, setHints] = useState([]);       // coups légaux
+const [lastMove, setLastMove] = useState(null); // {from,to}
 
-  function onPick(square) {
-    const piece = service.getPieceAt(square);
-    if (!piece) return;
-    setSelected(square);
-  }
+function onPick(square) {
+  const piece = service.getPieceAt(square);
+  if (!piece) return;
 
-  function onDrop(from, to) {
-    if (!from || !to) return;
-    service.movePiece(from, to); // libre: remplace si occupée
-    setPosition(service.getPosition());
-    setSelected(null);
-  }
+  const turn = service.getTurnColor();
+  if ((turn === "w" && !piece.startsWith("w")) || (turn === "b" && !piece.startsWith("b"))) return;
 
-  return (
-    <div style={styles.page}>
-      <div style={styles.panel}>
-        <h1 style={styles.title}>Échecs — déplacements libres</h1>
-        <p style={styles.subtitle}>
-          Drag & drop une pièce n’importe où (sans règles). Déposer sur une case
-          occupée remplace la pièce.
-        </p>
+  setSelected(square);
+  setHints(service.legalMovesFrom(square)); // ✅ cases possibles
+}
 
-        <div style={styles.layout}>
+function onDrop(from, to) {
+  const ok = service.movePiece(from, to);
+  setSelected(null);
+  setHints([]);
+
+  if (!ok) return;
+
+  setLastMove({ from, to });
+  setPosition(service.getPosition());
+}
+
+
+return (
+  <div style={styles.page}>
+    <div style={styles.container}>
+      <header style={styles.header}>
+        <h1 style={styles.title}>Échecs — règles activées (chess.js)</h1>
+        <div style={styles.badge}>Local</div>
+      </header>
+
+      <div style={styles.main}>
+        {/* Board */}
+        <div style={styles.boardWrap}>
           <Chessboard
             position={position}
             selected={selected}
             onPick={onPick}
             onDrop={onDrop}
           />
-
-          <div style={styles.side}>
-            <h2 style={styles.h2}>Infos</h2>
-            <div style={styles.card}>
-              <div><b>Pièces en jeu :</b> {Object.keys(position).length}</div>
-              <div><b>Historique :</b> {service.getHistory().length} coup(s)</div>
-            </div>
-
-            <h2 style={styles.h2}>Derniers coups</h2>
-            <div style={styles.card}>
-              {service.getHistory().slice(-8).reverse().map((m, idx) => (
-                <div key={idx} style={styles.moveLine}>
-                  {m.piece} : {m.from} → {m.to}
-                  {m.captured ? ` (remplace ${m.captured})` : ""}
-                </div>
-              ))}
-              {service.getHistory().length === 0 && (
-                <div style={{ opacity: 0.7 }}>Aucun déplacement.</div>
-              )}
-            </div>
-
-            <button
-              style={styles.btn}
-              onClick={() => {
-                service.reset(initialPosition());
-                setPosition(service.getPosition());
-                setSelected(null);
-              }}
-            >
-              Réinitialiser
-            </button>
-          </div>
         </div>
+
+        {/* Side panel */}
+        <aside style={styles.side}>
+          <h2 style={styles.h2}>Infos</h2>
+          <div style={styles.card}>
+            <div><b>Tour :</b> {service.getTurnColor() === "w" ? "Blancs" : "Noirs"}</div>
+            <div><b>Coups :</b> {service.getHistory().length}</div>
+            <div><b>Game over :</b> {service.isGameOver() ? "Oui" : "Non"}</div>
+          </div>
+
+          <h2 style={styles.h2}>Derniers coups (SAN)</h2>
+          <div style={styles.cardScroll}>
+            {service.getHistory().slice(-12).reverse().map((m, idx) => (
+              <div key={idx} style={styles.moveLine}>
+                <span style={styles.moveSan}>{m.san}</span>
+                <span style={styles.moveSmall}>{m.from}→{m.to}</span>
+              </div>
+            ))}
+            {service.getHistory().length === 0 && (
+              <div style={{ opacity: 0.7 }}>Aucun coup.</div>
+            )}
+          </div>
+
+          <button
+            style={styles.btn}
+            onClick={() => {
+              service.reset();
+              setPosition(service.getPosition());
+              setSelected(null);
+            }}
+          >
+            Réinitialiser
+          </button>
+        </aside>
       </div>
     </div>
-  );
+  </div>
+);
 }
+
 
 const styles = {
   page: {
     minHeight: "100vh",
+    background:
+      "radial-gradient(1000px 700px at 20% 0%, rgba(124,218,255,.22), transparent 55%)," +
+      "radial-gradient(900px 700px at 80% 30%, rgba(82,255,168,.14), transparent 60%)," +
+      "linear-gradient(180deg, #07111f 0%, #050a12 100%)",
+    color: "rgba(240,245,255,.95)",
     display: "flex",
     justifyContent: "center",
-    padding: 26,
+    padding: 28,
   },
 
-  panel: {
-    width: "min(1240px, 100%)",
+  container: {
+    width: "min(1200px, 100%)",
     display: "grid",
-    gap: 18,
+    gap: 16,
   },
 
   header: {
     display: "flex",
-    alignItems: "flex-end",
+    alignItems: "center",
     justifyContent: "space-between",
     gap: 16,
-    padding: "16px 18px",
-    borderRadius: 18,
-    background: "var(--panel)",
-    border: "1px solid var(--stroke)",
+    padding: "14px 16px",
+    borderRadius: 16,
+    background: "rgba(255,255,255,.06)",
+    border: "1px solid rgba(255,255,255,.10)",
     backdropFilter: "blur(12px)",
   },
 
-  titleWrap: { display: "flex", flexDirection: "column", gap: 6 },
-
   title: {
     margin: 0,
-    fontSize: 28,
-    fontWeight: 800,
-    letterSpacing: 0.3,
-  },
-
-  subtitle: {
-    margin: 0,
-    color: "var(--muted)",
-    fontSize: 13,
-    lineHeight: 1.35,
+    fontSize: 26,
+    fontWeight: 900,
+    letterSpacing: 0.2,
   },
 
   badge: {
     padding: "8px 12px",
     borderRadius: 999,
-    background: "rgba(124,218,255,.14)",
-    border: "1px solid rgba(124,218,255,.22)",
-    color: "var(--text)",
     fontSize: 12,
-    fontWeight: 700,
-    whiteSpace: "nowrap",
+    fontWeight: 800,
+    border: "1px solid rgba(255,255,255,.14)",
+    background: "rgba(255,255,255,.07)",
+    opacity: 0.9,
   },
 
-  layout: {
+  main: {
     display: "grid",
-    gridTemplateColumns: "560px 1fr",
+    gridTemplateColumns: "minmax(420px, 640px) 320px", // ✅ board max 640 + sidebar fixe
     gap: 18,
     alignItems: "start",
+  },
+
+  boardWrap: {
+    display: "flex",
+    justifyContent: "center",     // ✅ centre le board
   },
 
   side: {
     display: "flex",
     flexDirection: "column",
     gap: 12,
-  },
-
-  section: {
-    background: "var(--panel)",
-    border: "1px solid var(--stroke)",
-    borderRadius: 18,
     padding: 14,
+    borderRadius: 16,
+    background: "rgba(255,255,255,.06)",
+    border: "1px solid rgba(255,255,255,.10)",
     backdropFilter: "blur(12px)",
   },
 
   h2: {
     margin: 0,
-    fontSize: 13,
-    letterSpacing: 0.6,
+    fontSize: 12,
+    fontWeight: 900,
+    letterSpacing: 0.8,
     textTransform: "uppercase",
-    color: "rgba(233,238,252,.85)",
+    opacity: 0.9,
   },
 
-  statRow: {
-    marginTop: 10,
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: 10,
-  },
-
-  stat: {
-    borderRadius: 14,
+  card: {
     padding: 12,
+    borderRadius: 14,
     background: "rgba(255,255,255,.06)",
-    border: "1px solid rgba(255,255,255,.08)",
+    border: "1px solid rgba(255,255,255,.10)",
+    lineHeight: 1.55,
   },
 
-  statLabel: { fontSize: 12, color: "var(--muted)" },
-  statValue: { marginTop: 6, fontSize: 18, fontWeight: 800 },
-
-  list: {
-    marginTop: 10,
+  cardScroll: {
+    padding: 12,
+    borderRadius: 14,
+    background: "rgba(255,255,255,.06)",
+    border: "1px solid rgba(255,255,255,.10)",
+    maxHeight: 260,
+    overflow: "auto",
     display: "flex",
     flexDirection: "column",
     gap: 8,
-    maxHeight: 330,
-    overflow: "auto",
-    paddingRight: 6,
   },
 
-  moveItem: {
-    padding: "10px 10px",
-    borderRadius: 14,
-    background: "rgba(255,255,255,.06)",
-    border: "1px solid rgba(255,255,255,.08)",
+  moveLine: {
     display: "flex",
     justifyContent: "space-between",
     gap: 10,
+    padding: "8px 10px",
+    borderRadius: 12,
+    background: "rgba(0,0,0,.18)",
+    border: "1px solid rgba(255,255,255,.08)",
     fontSize: 13,
   },
 
-  moveLeft: { display: "flex", gap: 10, alignItems: "center" },
-  dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 99,
-    background: "var(--accent)",
-    boxShadow: "0 0 0 4px rgba(124,218,255,.16)",
-    flex: "0 0 auto",
+  moveSan: {
+    fontWeight: 900,
+  },
+
+  moveSmall: {
+    opacity: 0.8,
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+    fontSize: 12,
   },
 
   btn: {
-    marginTop: 10,
-    alignSelf: "flex-start",
+    marginTop: 6,
     padding: "10px 14px",
     borderRadius: 14,
     border: "1px solid rgba(124,218,255,.22)",
     background:
-      "linear-gradient(135deg, rgba(124,218,255,.26), rgba(82,255,168,.12))",
-    color: "var(--text)",
-    fontWeight: 800,
+      "linear-gradient(135deg, rgba(124,218,255,.20), rgba(82,255,168,.10))",
+    color: "rgba(240,245,255,.95)",
+    fontWeight: 900,
     cursor: "pointer",
-    transition: "transform .15s ease, filter .15s ease",
   },
 };
+
+
 
